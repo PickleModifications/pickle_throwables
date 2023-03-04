@@ -152,11 +152,27 @@ function PowerControls()
     end
 end
 
+function deepcopy(orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in next, orig, nil do
+            copy[deepcopy(orig_key)] = deepcopy(orig_value)
+        end
+        setmetatable(copy, deepcopy(getmetatable(orig)))
+    else -- number, string, boolean, etc
+        copy = orig
+    end
+    return copy
+end
+
 CreateThread(function()
     while true do
         local wait = 1000
         local ped = PlayerPedId()
-        for k,v in pairs(Throwables) do 
+        local throwables = deepcopy(Throwables)
+        for k,v in pairs(throwables) do
             if NetworkDoesNetworkIdExist(v.net_id) then 
                 local entity = NetToObj(v.net_id)
                 local dist = #(GetEntityCoords(ped) - GetEntityCoords(entity))
