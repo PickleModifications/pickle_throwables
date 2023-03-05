@@ -3,7 +3,7 @@ lua54 'yes'
 game 'gta5'
 
 name         'pickle_throwables'
-version      '1.0.0'
+version      '1.0.1'
 description  'A multi-framework and standalone throwing script, great for football, soccer and other sports.'
 author       'Pickle Mods'
 
